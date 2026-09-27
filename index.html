@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice Exam C — IELTS Academic Reading</title>
+<style>
+:root{
+  --ink:#2F3180; --ink2:#4A4DA6; --g1:#22245F; --g2:#6E72D6;
+  --bg:#ECEDFA; --paper:#FFFFFF; --soft:#F5F5FD; --soft2:#E6E7F8;
+  --hot:#8FC423; --hot2:#C2ED4E; --hot-d:#5F8A0E; --hot-text:#17240A;
+  --ok:#1F9254; --ok-bg:#E4F5EB; --no:#C8402F; --no-bg:#FDEBE8;
+  --line:#CDCFEC; --muted:#5A5C82; --text:#12144A;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--text);
+  font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+  font-size:16.5px; line-height:1.55; -webkit-font-smoothing:antialiased}
+button{font-family:inherit; font-size:inherit; cursor:pointer; transition:transform .08s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease}
+button:active{transform:scale(.97)}
+
+/* ---------- header ---------- */
+header{background:linear-gradient(120deg, var(--g1) 0%, var(--ink) 45%, var(--g2) 140%); color:#fff; padding:14px 22px 0}
+.hwrap{max-width:1320px; margin:0 auto; display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding-bottom:12px}
+.brand h1{margin:0; font-size:22px; font-weight:800; letter-spacing:-.2px}
+.brand p{margin:2px 0 0; font-size:12.5px; opacity:.75}
+.hspace{flex:1}
+.chip{background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.25); border-radius:22px; padding:5px 14px; font-size:13.5px; font-weight:600}
+.chip b{color:#fff}
+.clock{background:rgba(0,0,0,.22); border:1px solid rgba(255,255,255,.28); border-radius:10px;
+  padding:5px 16px; font-size:21px; font-variant-numeric:tabular-nums; font-weight:800; letter-spacing:.5px}
+.clock.over{background:#8C1F12; border-color:#F0705A; color:#FFD9D4; animation:pulse 1.6s ease-in-out infinite}
+.clock.paused{opacity:.45}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.hbtn{background:rgba(255,255,255,.10); color:#fff; border:1px solid rgba(255,255,255,.3); border-radius:8px; padding:6px 13px; font-size:13px; font-weight:600}
+.hbtn:hover{background:rgba(255,255,255,.22)}
+.hbtn.on{background:var(--hot); border-color:var(--hot); color:var(--hot-text)}
+.topbar{height:5px; background:rgba(0,0,0,.20)}
+.topbar span{display:block; height:100%; width:0; background:linear-gradient(90deg,var(--hot),var(--hot2)); transition:width .3s ease}
+
+main{max-width:1320px; margin:20px auto 50px; padding:0 22px}
+.panel{background:var(--paper); border:1px solid var(--line); border-radius:16px; overflow:hidden; box-shadow:0 6px 22px rgba(20,28,12,.07)}
+.body{padding:24px}
+.instr{background:var(--soft); border-left:5px solid var(--hot); border-radius:0 10px 10px 0; padding:13px 17px; font-size:15px; margin:0 0 20px}
+
+/* ---------- start screen ---------- */
+.hero h2{margin:0 0 4px; font-size:30px; font-weight:800; letter-spacing:-.5px}
+.hero .sub{margin:0 0 18px; font-size:15px; color:var(--muted)}
+.plist{display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:16px; margin-bottom:20px}
+.pcard{border:1px solid var(--line); border-radius:14px; padding:0; background:var(--paper); overflow:hidden;
+  transition:transform .15s ease, box-shadow .15s ease}
+.pcard:hover{transform:translateY(-3px); box-shadow:0 10px 24px rgba(20,28,12,.12)}
+.pcard .strip{height:6px; background:linear-gradient(90deg,var(--hot),var(--hot2))}
+.pcard .in{padding:15px 16px}
+.pcard .num{display:inline-block; background:var(--soft2); color:var(--ink); border-radius:20px;
+  padding:3px 11px; font-size:11.5px; letter-spacing:.08em; text-transform:uppercase; font-weight:800}
+.pcard h3{margin:9px 0 5px; font-size:19px; font-weight:700; line-height:1.25}
+.pcard .lv{font-size:13.5px; color:var(--muted)}
+.pcard .wc{font-size:12.5px; color:var(--muted); margin-top:10px; padding-top:9px; border-top:1px dashed var(--line)}
+.mode{display:flex; gap:9px; flex-wrap:wrap; margin:6px 0 0; align-items:center}
+.mbtn{border:2px solid var(--line); background:#fff; border-radius:26px; padding:9px 19px; font-size:14.5px; color:var(--muted); font-weight:600}
+.mbtn:hover{border-color:var(--hot)}
+.mbtn.on{background:var(--ink); color:#fff; border-color:var(--ink)}
+
+/* ---------- exam ---------- */
+.ptabs{display:flex; gap:8px; padding:13px 22px; border-bottom:1px solid var(--line); background:var(--soft); flex-wrap:wrap; align-items:center}
+.ptab{border:2px solid var(--line); background:#fff; border-radius:26px; padding:7px 17px; font-size:14px; color:var(--muted); font-weight:600}
+.ptab:hover{border-color:var(--ink2)}
+.ptab.active{background:var(--ink); border-color:var(--ink); color:#fff}
+.ptab .done{font-weight:800; color:var(--ok)}
+.ptab.active .done{color:var(--hot2)}
+.tbtn{border:2px solid var(--line); background:#fff; border-radius:26px; padding:6px 15px; font-size:13.5px; color:var(--muted); font-weight:600}
+.tbtn:hover{border-color:#D9C24A}
+.tbtn.on{background:#FFEE8C; border-color:#D9C24A; color:#4A3F0B}
+.paused-note{display:none; background:#FFF6DC; border-bottom:2px solid #E2C979; padding:12px 22px; font-size:15px}
+body.paused .paused-note{display:block}
+body.paused .split{filter:blur(8px); pointer-events:none; user-select:none}
+
+.split{display:grid; grid-template-columns:1fr 1fr}
+@media(max-width:950px){ .split{grid-template-columns:1fr} }
+.pass{border-right:1px solid var(--line); padding:22px 24px; max-height:72vh; overflow-y:auto; background:#FEFEFB}
+.pass h3{margin:0 0 3px; font-size:21px; font-weight:800; letter-spacing:-.3px}
+.pass .stand{font-size:14px; font-style:italic; color:var(--muted); margin:0 0 16px}
+.pass .p{display:flex; gap:11px; margin-bottom:12px; font-family:Georgia,"Times New Roman",serif; font-size:17px; line-height:1.78}
+.pass .p .l{flex:0 0 20px; font-weight:800; color:var(--hot-d); font-family:"Segoe UI",sans-serif; font-size:14px; padding-top:3px}
+mark.hl{background:#FFEE8C; color:inherit; padding:0 1px; border-radius:3px; cursor:pointer; box-shadow:inset 0 -2px 0 rgba(0,0,0,.10)}
+mark.hl:hover{background:#FFD84D}
+body.hl-on .pass{cursor:text}
+
+.qs{padding:20px 22px; max-height:72vh; overflow-y:auto; background:var(--paper)}
+.ghead{padding:9px 0 0; margin:22px 0 4px; font-weight:800; font-size:16px; border-top:3px solid var(--ink)}
+.ghead:first-child{margin-top:0; border-top:none; padding-top:0}
+.ghead .ty{float:right; font-weight:700; font-size:11px; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--hot-d); background:var(--soft2); border-radius:20px; padding:3px 10px}
+.gins{font-size:14px; color:var(--muted); margin:0 0 12px}
+.listbox{border:1px solid var(--line); border-left:5px solid var(--hot2); border-radius:0 10px 10px 0; padding:11px 15px; font-size:14.5px; margin-bottom:14px; background:var(--soft)}
+.listbox div{margin-bottom:3px}
+.sumbox{border:1px solid var(--line); border-radius:10px; padding:13px 16px; font-size:15.5px; line-height:2.05; margin-bottom:14px; background:var(--soft)}
+table.tb{width:100%; border-collapse:separate; border-spacing:0; font-size:14.5px; margin-bottom:14px; border:1px solid var(--line); border-radius:10px; overflow:hidden}
+table.tb th, table.tb td{border-bottom:1px solid var(--line); border-right:1px solid var(--line); padding:9px 11px; text-align:left; vertical-align:top}
+table.tb tr:last-child td{border-bottom:none}
+table.tb th:last-child, table.tb td:last-child{border-right:none}
+table.tb th{background:var(--ink); color:#fff; font-size:13.5px}
+.flow div.fb{border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:14.5px; background:var(--soft)}
+.flow div.ar{text-align:center; font-size:18px; line-height:1; margin:4px 0; color:var(--hot)}
+
+.q{margin-bottom:14px; padding:12px 14px; border:1px solid var(--line); border-left:4px solid var(--line);
+  border-radius:0 10px 10px 0; background:var(--paper); transition:border-color .15s ease, background .15s ease}
+.q:hover{border-color:var(--ink2)}
+.q.done{border-left-color:var(--ok); background:var(--ok-bg)}
+.q .qt{font-size:15.5px; margin:0 0 8px}
+.q .qt b.n{display:inline-block; min-width:26px; height:26px; line-height:26px; text-align:center;
+  background:var(--ink); color:#fff; border-radius:50%; font-size:13px; margin-right:7px}
+.q.done .qt b.n{background:var(--ok)}
+.ch{list-style:none; margin:0 0 10px; padding:0; font-size:15px}
+.ch li{margin-bottom:4px}
+.letts{display:flex; gap:8px; flex-wrap:wrap}
+.lbtn{border:2px solid var(--line); background:#fff; border-radius:10px; padding:8px 15px; font-size:15px; font-weight:700; min-width:46px; color:var(--muted)}
+.lbtn:hover{border-color:var(--hot); color:var(--text)}
+.lbtn.sel{background:linear-gradient(135deg,var(--hot),var(--hot2)); border-color:var(--hot); color:var(--hot-text); box-shadow:0 3px 10px rgba(0,0,0,.14)}
+input.txt{border:2px solid var(--line); border-radius:10px; padding:9px 12px; font-size:15.5px; width:250px; max-width:100%}
+input.txt:focus{outline:none; border-color:var(--hot); box-shadow:0 0 0 4px rgba(143,196,35,.22)}
+
+.navrow{display:flex; gap:10px; align-items:center; padding:16px 22px; border-top:1px solid var(--line); background:var(--soft); flex-wrap:wrap}
+.btn{background:var(--ink); color:#fff; border:0; border-radius:10px; padding:11px 22px; font-size:15.5px; font-weight:700}
+.btn:hover{box-shadow:0 5px 16px rgba(20,28,12,.20)}
+.btn.ghost{background:#fff; color:var(--ink); border:2px solid var(--ink)}
+.btn.hot{background:linear-gradient(135deg,var(--hot),var(--hot2)); color:var(--hot-text)}
+.navrow .sp{flex:1}
+.hint{font-size:13.5px; color:var(--muted)}
+
+/* ---------- results ---------- */
+.scorewrap{display:flex; gap:26px; align-items:center; flex-wrap:wrap; margin-bottom:8px}
+.donut{flex:0 0 auto; position:relative; width:168px; height:168px}
+.donut svg{transform:rotate(-90deg)}
+.donut .mid{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center}
+.donut .bandn{font-size:34px; font-weight:800; line-height:1; color:var(--ink)}
+.donut .bandl{font-size:11.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-top:4px}
+.scoreside{flex:1 1 240px}
+.scoreside .big{font-size:40px; font-weight:800; letter-spacing:-1px; line-height:1}
+.scoreside .big span{font-size:20px; color:var(--muted); font-weight:600}
+.grid2{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:14px; margin-top:14px}
+.stat{background:var(--soft); border:1px solid var(--line); border-radius:12px; padding:14px}
+.stat .n{font-size:26px; font-weight:800; color:var(--ink)}
+.stat .l{font-size:12.5px; color:var(--muted)}
+table.res{width:100%; border-collapse:separate; border-spacing:0; font-size:14.5px; margin-top:8px; border:1px solid var(--line); border-radius:12px; overflow:hidden}
+table.res th,table.res td{border-bottom:1px solid var(--line); padding:9px 11px; text-align:left}
+table.res tr:last-child td{border-bottom:none}
+table.res th{background:var(--ink); color:#fff; font-size:13.5px}
+.bar{height:11px; background:var(--soft2); border-radius:6px; overflow:hidden; min-width:90px}
+.bar span{display:block; height:100%; border-radius:6px; transition:width .5s ease}
+.rv{border:1px solid var(--line); border-left-width:5px; border-radius:0 10px 10px 0; padding:11px 15px; margin-bottom:9px; font-size:15px}
+.rv.right{border-left-color:var(--ok); background:var(--ok-bg)}
+.rv.wrong{border-left-color:var(--no); background:var(--no-bg)}
+.rv .top{font-weight:800}
+.rv .ty{float:right; font-weight:600; font-size:11.5px; color:var(--muted)}
+.rv .why{font-size:14px; color:#3B4235; margin-top:4px}
+h3.sec{font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin:26px 0 8px}
+.conf{position:fixed; width:10px; height:15px; top:-20px; z-index:99; pointer-events:none}
+@keyframes fall{to{transform:translateY(105vh) rotate(720deg); opacity:.2}}
+footer{text-align:center; padding:20px; font-size:13px; color:var(--muted)}
+@media print{ header,.ptabs,.navrow{display:none!important} .pass,.qs{max-height:none; overflow:visible} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand"><h1 id="hTitle">Practice Exam C</h1><p id="hSub">Sport · Art conservation · Space</p></div>
+    <div class="hspace"></div>
+    <span class="chip" id="progChip" style="display:none">Answered <b id="prog">0/40</b></span>
+    <span class="clock" id="clock" style="display:none">60:00</span>
+    <button class="hbtn" id="pauseBtn" style="display:none">Pause</button>
+    <button class="hbtn" id="saveBtn">Save</button>
+    <button class="hbtn" id="loadBtn">Load</button>
+    <input type="file" id="fileIn" accept="application/json" hidden>
+  </div>
+  <div class="topbar"><span id="topfill"></span></div>
+</header>
+
+<main><section class="panel" id="panel"></section></main>
+<footer id="foot">Practice Exam C · IELTS Academic Reading · Designed by: Nazila Motahari</footer>
+
+<script>
+const EXAM = {
+id:"c", code:"C", title:"Practice Exam C", sub:"Sport · Art conservation · Space",
+passages:[
+
+/* ---------------- PASSAGE 1 — easiest ---------------- */
+{
+ n:1, title:"Twenty-Six Miles", stand:"How a distance invented by accident became the test everybody wants to pass.",
+ level:"Band 6 — history and physiology, told plainly",
+ paras:[
+  {l:"A", t:"The marathon is named after a battle. The story says that a Greek messenger ran from the plain of Marathon to Athens with news of victory, delivered it, and died. Historians regard the tale as doubtful, and the earliest surviving account was written some six hundred years after the event, but the story was well enough known in the nineteenth century for the organisers of the first modern Olympic Games to build a race around it."},
+  {l:"B", t:"The distance was not fixed at first. The 1896 race in Athens covered about forty kilometres, and the early Olympic marathons all differed a little. The modern figure of forty-two kilometres and one hundred and ninety-five metres comes from London in 1908, where the course was arranged to start beneath a window of Windsor Castle so that the royal children could watch, and to finish in front of the royal box in the stadium. The distance that resulted was adopted permanently in 1921, for no better reason than that it had been used before."},
+  {l:"C", t:"Running it is mostly a problem of fuel. The body stores carbohydrate in the muscles and liver as glycogen, and a trained runner has roughly enough for two hours of hard effort. Fat is available in far greater quantities but is converted to energy more slowly. A runner who empties the glycogen store before the finish does not simply slow down; the change is abrupt and is known to runners as hitting the wall, usually somewhere after thirty kilometres. Most of a marathon training programme exists to delay that moment, by teaching the body to burn a greater proportion of fat and to store a little more glycogen."},
+  {l:"D", t:"Heat is the second problem. Muscles are inefficient engines, and about three-quarters of the energy they release appears as heat rather than movement. On a warm day the body cannot lose it fast enough, so blood is sent to the skin, less is available to the muscles, and the pace falls. This is why the great performances almost always happen in cool weather, and why races in hot countries start before dawn."},
+  {l:"E", t:"The event has changed in who runs it more than in how it is run. Women were excluded from Olympic marathons until 1984, on the argument that the distance was unsuitable for them, and that argument collapsed only after women ran it anyway. Today the majority of entrants in large city marathons are not competing against anyone. They are raising money, marking a birthday, or discovering what four hours of discomfort feels like, and the finishing times of the middle of the field have become slower every decade as a result — which is not a decline but a sign of how many more people now take part."}
+ ],
+ groups:[
+  {g:"Questions 1–5", type:"Matching headings",
+   ins:"Passage 1 has five paragraphs, <b>A–E</b>. Choose the correct heading for each paragraph.",
+   list:["i. Why the standard distance is such an odd number","ii. A story that may never have happened","iii. Running out of fuel","iv. Why a cool day produces faster times","v. A race that most entrants are not trying to win","vi. Training methods used by professionals","vii. The rules on drinking during a race"],
+   qs:[
+    {id:"q1", k:"let", opts:["i","ii","iii","iv","v","vi","vii"], t:"Paragraph A", a:["ii"], why:"Historians regard the messenger story as doubtful."},
+    {id:"q2", k:"let", opts:["i","ii","iii","iv","v","vi","vii"], t:"Paragraph B", a:["i"], why:"The 1908 course was arranged around Windsor Castle and the royal box."},
+    {id:"q3", k:"let", opts:["i","ii","iii","iv","v","vi","vii"], t:"Paragraph C", a:["iii"], why:"Glycogen, fat and hitting the wall."},
+    {id:"q4", k:"let", opts:["i","ii","iii","iv","v","vi","vii"], t:"Paragraph D", a:["iv"], why:"Heat, blood sent to the skin, and why records come on cool days."},
+    {id:"q5", k:"let", opts:["i","ii","iii","iv","v","vi","vii"], t:"Paragraph E", a:["v"], why:"Most entrants are raising money or marking a birthday."}
+   ]},
+  {g:"Questions 6–9", type:"True/False/Not Given",
+   ins:"Do the following statements agree with the information in Passage 1? Write <b>TRUE</b>, <b>FALSE</b> or <b>NOT GIVEN</b>.",
+   qs:[
+    {id:"q6", k:"let", opts:["TRUE","FALSE","NOT GIVEN"], t:"All the early Olympic marathons were run over the same distance.", a:["false"], why:"They all differed a little; the distance was not fixed at first."},
+    {id:"q7", k:"let", opts:["TRUE","FALSE","NOT GIVEN"], t:"The current distance was chosen because it suited runners' bodies.", a:["false"], why:"It came from the arrangement of the 1908 London course."},
+    {id:"q8", k:"let", opts:["TRUE","FALSE","NOT GIVEN"], t:"The body can release energy from fat more slowly than from glycogen.", a:["true"], why:"\"Fat … is converted to energy more slowly.\""},
+    {id:"q9", k:"let", opts:["TRUE","FALSE","NOT GIVEN"], t:"More women than men now enter large city marathons.", a:["not given"], why:"Women's participation is discussed, but the two are never compared in number."}
+   ]},
+  {g:"Questions 10–13", type:"Short answer",
+   ins:"Answer the questions. Choose <b>NO MORE THAN THREE WORDS</b> from the passage for each answer.",
+   qs:[
+    {id:"q10", k:"txt", t:"In which form is carbohydrate stored in the muscles and liver?", a:["glycogen","as glycogen"], why:"Paragraph C."},
+    {id:"q11", k:"txt", t:"What do runners call the sudden slowing that follows an empty glycogen store?", a:["hitting the wall","the wall"], why:"\"Known to runners as hitting the wall.\""},
+    {id:"q12", k:"txt", t:"Where is blood sent when the body cannot lose heat quickly enough?", a:["the skin","skin","to the skin"], why:"Paragraph D."},
+    {id:"q13", k:"txt", t:"Until which year were women excluded from the Olympic marathon?", a:["1984"], why:"Paragraph E."}
+   ]}
+ ]
+},
+
+/* ---------------- PASSAGE 2 — middle ---------------- */
+{
+ n:2, title:"The Cleaning of a Painting", stand:"Every restoration is an argument about which version of a picture is the real one.",
+ level:"Band 6.5 — a process to follow, and a controversy to weigh",
+ paras:[
+  {l:"A", t:"A painting begins to change on the day it is finished. Oil darkens, the varnish applied to protect it yellows and cracks, dirt and smoke settle into the surface, and earlier repairs discolour at a different rate from the paint around them. A picture four hundred years old that has never been touched does not look old and authentic. It looks brown."},
+  {l:"B", t:"Modern conservation therefore begins with examination rather than cleaning, and most of it is done without touching the paint. Under ultraviolet light, old varnish glows and recent retouching stays dark, so the restorer can see at once what previous hands have added. X-rays pass through the layers and reveal the wooden panel or the canvas weave beneath, along with any figure the artist painted and then covered. Infrared reflectography shows the underdrawing, the sketch made before the colour was laid on, which is often the clearest evidence of whether a work is by the master or the workshop. Only when this record is complete is any solvent allowed near the surface."},
+  {l:"C", t:"Cleaning itself is done in small squares, under a microscope, with a swab the size of a match head. The aim is to dissolve the varnish without dissolving the paint, and the difference between the two is sometimes a matter of seconds. Conservators test each solvent first on a corner that will later be hidden by the frame, and they proceed in stages, stopping and photographing at each one. Almost all of them now follow a principle called reversibility: anything the restorer adds — filler, retouching, new varnish — must be removable by a later generation without harming the original."},
+  {l:"D", t:"The reasoning behind reversibility is an admission. Every generation of restorers has been confident, and every generation has been corrected. In the nineteenth century, damaged areas were repainted freely and in the style the restorer considered appropriate; some of the results are now themselves regarded as historical objects, and removing them raises the question of whose work is being preserved. The modern approach is to make losses visible at close range and invisible from a normal viewing distance, by filling them with fine vertical lines of colour rather than smooth paint."},
+  {l:"E", t:"The public argument rarely concerns technique. It concerns how far to go. When the Sistine Chapel ceiling was cleaned between 1980 and 1994, the figures emerged in colours so bright that a number of art historians protested that Michelangelo's final shadows had been removed with the soot, and that generations had admired a picture that never existed. The cleaning team replied that the shadows were candle smoke and later varnish, and that the evidence for the restoration lay in the areas left untouched for comparison. Both sides had photographs; neither convinced the other."},
+  {l:"F", t:"Some decisions are simply not technical questions at all. A cleaned painting is brighter and more legible, and it is also less mysterious. Museums know that visitors respond to the restored version, and that funders like a dramatic before-and-after. Conservators know that the safest treatment for any object is usually the least treatment, and that a picture can be cleaned only a small number of times in its life. Where those two pressures meet, the person holding the swab is making a judgement that no instrument can make for them."}
+ ],
+ groups:[
+  {g:"Questions 14–17", type:"Flow-chart completion",
+   ins:"Complete the flow chart. Choose <b>NO MORE THAN TWO WORDS</b> from the passage for each answer.",
+   flow:["<b>Examination under ultraviolet light</b> — old varnish glows, while recent <b>14</b> ______ stays dark",
+         "<b>X-rays</b> — show the panel or canvas beneath, and any figure the artist later <b>15</b> ______",
+         "<b>Infrared reflectography</b> — reveals the <b>16</b> ______ made before the colour was applied",
+         "<b>Cleaning</b> — done in small squares under a microscope, testing each <b>17</b> ______ first on a corner hidden by the frame"],
+   qs:[
+    {id:"q14", k:"txt", t:"Gap 14", a:["retouching"], why:"\"Recent retouching stays dark.\""},
+    {id:"q15", k:"txt", t:"Gap 15", a:["covered"], why:"\"Any figure the artist painted and then covered.\""},
+    {id:"q16", k:"txt", t:"Gap 16", a:["underdrawing","the underdrawing"], why:"\"Infrared reflectography shows the underdrawing.\""},
+    {id:"q17", k:"txt", t:"Gap 17", a:["solvent"], why:"\"Conservators test each solvent first on a corner.\""}
+   ]},
+  {g:"Questions 18–21", type:"Multiple choice",
+   ins:"Choose the correct letter, <b>A</b>, <b>B</b>, <b>C</b> or <b>D</b>.",
+   qs:[
+    {id:"q18", k:"let", opts:["A","B","C","D"], t:"What does the writer say about an old painting that has never been restored?",
+     ch:["It is the most valuable kind.","It looks brown rather than authentic.","It cannot be examined with X-rays.","It has usually lost its varnish."],
+     a:["b"], why:"\"It does not look old and authentic. It looks brown.\""},
+    {id:"q19", k:"let", opts:["A","B","C","D"], t:"What is the purpose of the principle of reversibility?",
+     ch:["To make restoration cheaper.","To speed up the cleaning process.","To allow a later generation to undo the work.","To hide losses from close inspection."],
+     a:["c"], why:"Anything added must be removable later without harming the original."},
+    {id:"q20", k:"let", opts:["A","B","C","D"], t:"Why does the writer call reversibility \"an admission\"?",
+     ch:["It admits that nineteenth-century work was better.","Restorers admit they cannot afford better materials.","It admits that solvents always damage paint.","It admits that today's restorers may also turn out to be wrong."],
+     a:["d"], why:"\"Every generation of restorers has been confident, and every generation has been corrected.\""},
+    {id:"q21", k:"let", opts:["A","B","C","D"], t:"How are missing areas treated in modern restoration?",
+     ch:["They are left empty.","They are repainted in the restorer's own style.","They are filled so as to be visible only from close up.","They are covered with a removable panel."],
+     a:["c"], why:"Fine vertical lines: visible at close range, invisible from a normal viewing distance."}
+   ]},
+  {g:"Questions 22–26", type:"Sentence completion",
+   ins:"Complete the sentences. Choose <b>NO MORE THAN TWO WORDS</b> from the passage for each answer.",
+   qs:[
+    {id:"q22", k:"txt", t:"Varnish applied to protect a painting eventually ______ and cracks.", a:["yellows"], why:"Paragraph A."},
+    {id:"q23", k:"txt", t:"The underdrawing often shows whether a painting was made by the master or by the ______.", a:["workshop","the workshop"], why:"Paragraph B."},
+    {id:"q24", k:"txt", t:"Critics of the Sistine Chapel cleaning argued that Michelangelo's final ______ had been removed.", a:["shadows"], why:"Paragraph E."},
+    {id:"q25", k:"txt", t:"The cleaning team said that the dark areas were later varnish and candle ______.", a:["smoke"], why:"Paragraph E."},
+    {id:"q26", k:"txt", t:"Conservators believe that the safest treatment is usually the ______ treatment.", a:["least"], why:"Paragraph F."}
+   ]}
+ ]
+},
+
+/* ---------------- PASSAGE 3 — hardest ---------------- */
+{
+ n:3, title:"The Crowded Sky", stand:"Everything humanity has ever launched is still up there, unless it has come down.",
+ level:"Just under Band 7 — technical detail, competing proposals, an unresolved policy problem",
+ paras:[
+  {l:"A", t:"Low Earth orbit is the region within roughly two thousand kilometres of the surface, and it is where almost everything useful happens: imaging, weather, the space station, and the large constellations of communications satellites launched in the past decade. It is also where the rubbish is. Agencies currently track some thirty-six thousand objects larger than ten centimetres, and estimate that there are more than a hundred million fragments too small to see and quite large enough to matter."},
+  {l:"B", t:"Size is misleading because speed is what does the damage. An object in low orbit travels at around seven and a half kilometres per second, and two objects meeting head-on close at roughly twice that. At such velocities the energy of a collision depends on the square of the speed, so a fleck of paint a centimetre across arrives with the force of a hand grenade. Space station windows have been replaced after being chipped by debris that was never identified, and manned missions have altered course to avoid objects that would be invisible on a table."},
+  {l:"C", t:"In 1978 Donald Kessler, then at NASA, described the consequence that gives the field its name. Each collision produces fragments; each fragment raises the chance of the next collision; and beyond a certain density the process continues without any further launches, a chain reaction that could make particular orbits unusable for generations. Kessler did not predict a sudden catastrophe. He described a slow feedback, which is harder to argue about because nobody can say precisely when it has begun."},
+  {l:"D", t:"Two events supplied most of the current problem. In 2007 China destroyed one of its own weather satellites in a missile test, creating more than three thousand trackable pieces at an altitude where they will remain for decades. Two years later an operational American communications satellite collided with a defunct Russian one over Siberia, an accident rather than a test, which produced a comparable cloud. Between them these two events increased the catalogued population by roughly a third, and much of it sits in exactly the band that Earth-observation satellites use."},
+  {l:"E", t:"Prevention is easier than repair and is now largely agreed. Guidelines ask operators to remove a satellite from a useful orbit within twenty-five years of the end of its mission, either by pushing it up to a disposal orbit or, more usefully, by lowering it so that the thin upper atmosphere drags it down to burn. Compliance has improved but remains incomplete, and the guidelines are not binding: there is no authority with the power to impose them, and a satellite that fails early takes its disposal plan with it."},
+  {l:"F", t:"Removing what is already there is far harder. Proposals include nets, harpoons, magnetic capture and ground-based lasers intended to nudge fragments into lower orbits, and a European mission has demonstrated a net and a harpoon in a controlled test. Every one of these faces the same political difficulty rather than a technical one. A machine that can approach and capture somebody else's satellite is, in every meaningful sense, a weapon, and no state is willing to watch another operate one near its own assets. The cost is also awkward: the objects most worth removing are large rocket bodies that belong to states with little incentive to pay for their disposal."},
+  {l:"G", t:"What has changed the urgency is the arrival of constellations numbering in the thousands rather than the dozens. Their operators argue, with some justice, that their satellites fly low enough to re-enter within a few years if abandoned, and that they manoeuvre automatically to avoid collisions. Critics reply that automatic avoidance depends on tracking data of uneven quality, that manoeuvring works only if both objects are controlled, and that a single failure in a shell of thousands is a different kind of event from a single failure among dozens. The disagreement is not about physics. It is about how much risk a shared and unowned space should be allowed to carry, and there is at present no forum with the authority to answer."}
+ ],
+ groups:[
+  {g:"Questions 27–31", type:"Summary completion",
+   ins:"Complete the summary using the list of words, <b>A–J</b>, below. There are more words than gaps.",
+   list:["A  speed","B  weapon","C  fragments","D  binding","E  atmosphere","F  altitude","G  tracking","H  shape","I  missile","J  disposal"],
+   sum:"Debris is dangerous less because of its size than because of its <b>27</b> ______ . Kessler's warning was that each collision creates <b>28</b> ______ which make the next collision more likely. Guidelines now ask operators to lower a dead satellite so that the upper <b>29</b> ______ pulls it down, but these rules are not <b>30</b> ______ . Any machine built to capture another country's satellite is also, in effect, a <b>31</b> ______ .",
+   qs:[
+    {id:"q27", k:"let", opts:["A","B","C","D","E","F","G","H","I","J"], t:"Gap 27", a:["a"], why:"\"Size is misleading because speed is what does the damage.\""},
+    {id:"q28", k:"let", opts:["A","B","C","D","E","F","G","H","I","J"], t:"Gap 28", a:["c"], why:"\"Each collision produces fragments; each fragment raises the chance of the next.\""},
+    {id:"q29", k:"let", opts:["A","B","C","D","E","F","G","H","I","J"], t:"Gap 29", a:["e"], why:"The thin upper atmosphere drags it down to burn."},
+    {id:"q30", k:"let", opts:["A","B","C","D","E","F","G","H","I","J"], t:"Gap 30", a:["d"], why:"\"The guidelines are not binding.\""},
+    {id:"q31", k:"let", opts:["A","B","C","D","E","F","G","H","I","J"], t:"Gap 31", a:["b"], why:"\"Is, in every meaningful sense, a weapon.\""}
+   ]},
+  {g:"Questions 32–35", type:"Classification",
+   ins:"Classify each statement as referring to <b>A</b> the 2007 Chinese test · <b>B</b> the 2009 collision over Siberia · <b>C</b> both events.",
+   qs:[
+    {id:"q32", k:"let", opts:["A","B","C"], t:"It was deliberate.", a:["a"], why:"A missile test; the 2009 event was an accident."},
+    {id:"q33", k:"let", opts:["A","B","C"], t:"It involved a satellite that was no longer working.", a:["b"], why:"An operational American satellite struck a defunct Russian one."},
+    {id:"q34", k:"let", opts:["A","B","C"], t:"It added a large quantity of debris to the catalogue.", a:["c"], why:"Between them the two events increased the population by roughly a third."},
+    {id:"q35", k:"let", opts:["A","B","C"], t:"It destroyed a weather satellite.", a:["a"], why:"China destroyed one of its own weather satellites."}
+   ]},
+  {g:"Questions 36–40", type:"Yes/No/Not Given",
+   ins:"Do the following statements agree with the claims of the writer? Write <b>YES</b>, <b>NO</b> or <b>NOT GIVEN</b>.",
+   qs:[
+    {id:"q36", k:"let", opts:["YES","NO","NOT GIVEN"], t:"Kessler predicted that a sudden disaster would occur in low orbit.", a:["no"], why:"\"Kessler did not predict a sudden catastrophe. He described a slow feedback.\""},
+    {id:"q37", k:"let", opts:["YES","NO","NOT GIVEN"], t:"Removing existing debris is prevented mainly by technical limitations.", a:["no"], why:"\"Every one of these faces the same political difficulty rather than a technical one.\""},
+    {id:"q38", k:"let", opts:["YES","NO","NOT GIVEN"], t:"The operators of large constellations have a reasonable case.", a:["yes"], why:"\"Their operators argue, with some justice…\""},
+    {id:"q39", k:"let", opts:["YES","NO","NOT GIVEN"], t:"Ground-based lasers are the most promising of the removal methods.", a:["not given"], why:"Lasers are listed among the proposals, but never ranked."},
+    {id:"q40", k:"let", opts:["YES","NO","NOT GIVEN"], t:"There is currently no body with the authority to settle the question of acceptable risk.", a:["yes"], why:"The final sentence says exactly this."}
+   ]}
+ ]
+}
+]};
+
+const APP_ID = "exam-" + EXAM.id;
+let screen = "start", cur = 0, mode = "timed", tick = null, spent = 0, paused = false, pauses = 0, pausedFor = 0;
+const st = { ans:{}, result:null, hl:{} };
+const $ = s => document.querySelector(s);
+const LIMIT = 60*60;
+
+const norm = s => (s||"").toString().toLowerCase().trim().replace(/\s+/g," ")
+  .replace(/[.,;:!?]+$/,"").replace(/^(the|a|an)\s+/,"").replace(/-/g," ");
+
+function allQs(){ const o=[]; EXAM.passages.forEach(p=>p.groups.forEach(g=>g.qs.forEach(q=>o.push(Object.assign({}, q, {ty:g.type, pn:p.n}))))); return o; }
+const QALL = allQs();
+const numOf = id => +id.replace("q","");
+function answered(){ return QALL.filter(q=>{ const a=st.ans[q.id]; return a!==undefined && String(a).trim()!==""; }).length; }
+function correct(q){ return q.a.map(norm).includes(norm(st.ans[q.id])); }
+function bandOf(s){
+  const t=[[39,"9.0"],[37,"8.5"],[35,"8.0"],[33,"7.5"],[30,"7.0"],[27,"6.5"],[23,"6.0"],[19,"5.5"],[15,"5.0"],[13,"4.5"],[10,"4.0"],[8,"3.5"],[6,"3.0"]];
+  for(const [n,b] of t) if(s>=n) return b;
+  return "under 3.0";
+}
+function fmt(sec){ const m=Math.floor(Math.abs(sec)/60), s=Math.abs(sec)%60; return m+":"+String(s).padStart(2,"0"); }
+
+/* ---------------- screens ---------------- */
+function startHTML(){
+  let h="<div class='body'><div class='hero'><h2>"+EXAM.title+"</h2><p class='sub'>"+EXAM.sub+" &nbsp;·&nbsp; three passages &nbsp;·&nbsp; 40 questions &nbsp;·&nbsp; 60 minutes</p></div>";
+  h+="<p class='instr'>This is a full reading paper. The three passages get harder as you go: the first is written at about Band 6, the last at just under Band 7. You may move between passages freely, and you may <b>highlight</b> anything in a passage by selecting it, exactly as in the computer-delivered test. You may also <b>pause</b> the clock — the text is hidden while it is stopped, so a break costs nothing and gains nothing. Nothing is marked until you press Finish.</p>";
+  h+="<div class='plist'>";
+  EXAM.passages.forEach(p=>{
+    const w=p.paras.reduce((n,x)=>n+x.t.split(/\s+/).length,0);
+    const qn=p.groups.reduce((n,g)=>n+g.qs.length,0);
+    h+="<div class='pcard'><div class='strip'></div><div class='in'><div class='num'>Passage "+p.n+"</div><h3>"+p.title+"</h3><div class='lv'>"+p.level+"</div>"+
+       "<div class='wc'>"+w+" words · "+qn+" questions<br>"+p.groups.map(g=>g.type).filter((v,i,a)=>a.indexOf(v)===i).join(" · ")+"</div></div></div>";
+  });
+  h+="</div>";
+  h+="<div class='mode'><span class='hint' style='align-self:center;margin-right:6px'>Mode:</span>"+
+     "<button class='mbtn"+(mode==="timed"?" on":"")+"' data-m='timed'>Timed — 60 minutes</button>"+
+     "<button class='mbtn"+(mode==="open"?" on":"")+"' data-m='open'>Untimed practice</button></div>";
+  h+="</div><div class='navrow'><span class='hint'>Answer every question. A blank scores nothing; a guess sometimes scores a mark.</span><span class='sp'></span>"+
+     (st.result? "<button class='btn ghost' id='seeRes'>Last result</button>":"")+
+     "<button class='btn hot' id='begin'>Start the paper</button></div>";
+  return h;
+}
+
+function esc(t){ return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function hlOf(pi,idx){ return (st.hl[pi] && st.hl[pi][idx]) || []; }
+function paraHTML(pi,idx){
+  const t=EXAM.passages[pi].paras[idx].t, rs=hlOf(pi,idx);
+  if(!rs.length) return esc(t);
+  let out="", pos=0;
+  rs.forEach((r,i)=>{
+    out+=esc(t.slice(pos,r[0]))+"<mark class='hl' data-hp='"+idx+"' data-hi='"+i+"' title='Click to remove this highlight'>"+esc(t.slice(r[0],r[1]))+"</mark>";
+    pos=r[1];
+  });
+  return out+esc(t.slice(pos));
+}
+function passHTML(p){
+  const pi=EXAM.passages.indexOf(p);
+  let h="<div class='pass' id='passCol'><h3>"+p.title+"</h3><p class='stand'>"+p.stand+"</p>";
+  p.paras.forEach((x,i)=>{ h+="<div class='p'>"+(x.l?"<span class='l'>"+x.l+"</span>":"")+
+    "<span class='pt' data-p='"+i+"'>"+paraHTML(pi,i)+"</span></div>"; });
+  return h+"</div>";
+}
+
+/* ---------- highlighting ---------- */
+let hlMode=true;
+function countHL(){ let n=0; Object.values(st.hl||{}).forEach(p=>Object.values(p).forEach(a=>n+=a.length)); return n; }
+function addHL(pi,idx,s,e){
+  const t=EXAM.passages[pi].paras[idx].t;
+  while(s<e && /\s/.test(t[s])) s++;
+  while(e>s && /\s/.test(t[e-1])) e--;
+  if(e<=s) return false;
+  st.hl[pi]=st.hl[pi]||{};
+  const list=(st.hl[pi][idx]||[]).concat([[s,e]]).sort((a,b)=>a[0]-b[0]);
+  const merged=[];
+  list.forEach(r=>{ const last=merged[merged.length-1];
+    if(last && r[0]<=last[1]) last[1]=Math.max(last[1],r[1]); else merged.push([r[0],r[1]]); });
+  st.hl[pi][idx]=merged;
+  return true;
+}
+function removeHL(pi,idx,i){
+  if(!st.hl[pi]||!st.hl[pi][idx]) return;
+  st.hl[pi][idx].splice(i,1);
+  if(!st.hl[pi][idx].length) delete st.hl[pi][idx];
+  if(!Object.keys(st.hl[pi]).length) delete st.hl[pi];
+}
+function offsetOf(el,node,off){
+  let n=0, done=false;
+  (function walk(x){
+    if(done) return;
+    if(x.nodeType===3){ if(x===node){ n+=off; done=true; return; } n+=x.nodeValue.length; }
+    else Array.prototype.forEach.call(x.childNodes, walk);
+  })(el);
+  return n;
+}
+function captureSelection(){
+  if(!hlMode) return;
+  const sel=window.getSelection();
+  if(!sel || sel.isCollapsed || !sel.rangeCount) return;
+  const range=sel.getRangeAt(0);
+  let added=false;
+  document.querySelectorAll("#passCol .pt").forEach(el=>{
+    if(!range.intersectsNode(el)) return;
+    const idx=+el.dataset.p;
+    const s = el.contains(range.startContainer) ? offsetOf(el,range.startContainer,range.startOffset) : 0;
+    const e = el.contains(range.endContainer)   ? offsetOf(el,range.endContainer,range.endOffset)   : el.textContent.length;
+    if(e>s && addHL(cur,idx,s,e)) added=true;
+  });
+  sel.removeAllRanges();
+  if(added) repaintPassage();
+}
+function repaintPassage(){
+  const col=document.querySelector("#passCol");
+  if(col) col.outerHTML=passHTML(EXAM.passages[cur]);
+  const c=document.querySelector("#hlCount"); if(c) c.textContent=countHL();
+  wireHL();
+}
+function wireHL(){
+  const col=document.querySelector("#passCol");
+  if(col) col.onmouseup=captureSelection;
+  document.querySelectorAll("#passCol mark.hl").forEach(m=>m.onclick=ev=>{
+    ev.stopPropagation();
+    removeHL(cur, +m.dataset.hp, +m.dataset.hi);
+    repaintPassage();
+  });
+  document.body.classList.toggle("hl-on", hlMode);
+}
+
+function qsHTML(p){
+  let h="<div class='qs'>";
+  p.groups.forEach(g=>{
+    h+="<div class='ghead'>"+g.g+"<span class='ty'>"+g.type+"</span></div><p class='gins'>"+g.ins+"</p>";
+    if(g.list) h+="<div class='listbox'>"+g.list.map(x=>"<div>"+x+"</div>").join("")+"</div>";
+    if(g.sum)  h+="<div class='sumbox'>"+g.sum+"</div>";
+    if(g.table){ h+="<table class='tb'><tr>"+g.table.head.map(x=>"<th>"+x+"</th>").join("")+"</tr>"+
+      g.table.rows.map(r=>"<tr>"+r.map(c=>"<td>"+c+"</td>").join("")+"</tr>").join("")+"</table>"; }
+    if(g.flow){ h+="<div class='flow'>"+g.flow.map((b,i)=>(i?"<div class='ar'>&#8595;</div>":"")+"<div class='fb'>"+b+"</div>").join("")+"</div>"; }
+    g.qs.forEach(q=>{
+      const cur=st.ans[q.id];
+      const ansd = cur!==undefined && st.ans[q.id]!==undefined && String(st.ans[q.id]).trim()!=="";
+      h+="<div class='q"+(ansd?" done":"")+"' id='q-"+q.id+"'><p class='qt'><b class='n'>"+numOf(q.id)+"</b> "+q.t+"</p>";
+      if(q.ch) h+="<ul class='ch'>"+q.ch.map((c,i)=>"<li><b>"+"ABCD"[i]+"</b> &nbsp;"+c+"</li>").join("")+"</ul>";
+      if(q.k==="txt") h+="<input class='txt' data-t='"+q.id+"' value=\""+(cur?String(cur).replace(/"/g,"&quot;"):"")+"\" placeholder='type your answer'>";
+      else h+="<div class='letts'>"+q.opts.map(o=>"<button class='lbtn"+(cur===o?" sel":"")+"' data-l='"+q.id+"' data-v='"+o+"'>"+o+"</button>").join("")+"</div>";
+      h+="</div>";
+    });
+  });
+  return h+"</div>";
+}
+
+function examHTML(){
+  const p=EXAM.passages[cur];
+  let h="<div class='ptabs'>";
+  EXAM.passages.forEach((x,i)=>{
+    const qs=x.groups.flatMap(g=>g.qs), done=qs.filter(q=>{const a=st.ans[q.id]; return a!==undefined&&String(a).trim()!=="";}).length;
+    h+="<button class='ptab"+(i===cur?" active":"")+"' data-p='"+i+"'>Passage "+x.n+" <span class='done'>"+done+"/"+qs.length+"</span></button>";
+  });
+  h+="<span class='sp' style='flex:1'></span>"+
+     "<button class='tbtn"+(hlMode?" on":"")+"' id='hlBtn' title='When this is on, text you select in the passage is highlighted'>Highlighter "+(hlMode?"on":"off")+"</button>"+
+     "<button class='tbtn' id='hlClear'>Clear <span id='hlCount'>"+countHL()+"</span></button>"+
+     "<span class='hint' id='left'></span></div>";
+  h+="<div class='paused-note'>The clock is stopped and the passage is hidden, so the pause cannot be used for extra reading. Press <b>Resume</b> when you are ready.</div>";
+  h+="<div class='split'>"+passHTML(p)+qsHTML(p)+"</div>";
+  h+="<div class='navrow'>"+
+     (cur>0? "<button class='btn ghost' id='prevP'>← Passage "+(cur)+"</button>":"")+
+     (cur<EXAM.passages.length-1? "<button class='btn' id='nextP'>Passage "+(cur+2)+" →</button>":"")+
+     "<span class='sp'></span><button class='btn hot' id='finish'>Finish and mark</button>"+
+     "<button class='btn ghost' id='quit'>Leave</button></div>";
+  return h;
+}
+
+function resultHTML(){
+  const r=st.result;
+  const pct=Math.round(r.score/40*100), C=2*Math.PI*70;
+  let h="<div class='body'><div class='hero'><h2>"+EXAM.title+" — your result</h2></div>";
+  h+="<div class='scorewrap'><div class='donut'><svg width='168' height='168' viewBox='0 0 168 168'>"+
+     "<circle cx='84' cy='84' r='70' fill='none' stroke='var(--soft2)' stroke-width='16'/>"+
+     "<circle cx='84' cy='84' r='70' fill='none' stroke='"+(pct>=75?"var(--ok)":pct>=50?"var(--hot)":"var(--no)")+"' stroke-width='16' stroke-linecap='round' "+
+     "stroke-dasharray='"+C+"' stroke-dashoffset='"+(C*(1-pct/100))+"'/></svg>"+
+     "<div class='mid'><div class='bandn'>"+r.band+"</div><div class='bandl'>band</div></div></div>"+
+     "<div class='scoreside'><div class='big'>"+r.score+" <span>/ 40 correct</span></div>"+
+     "<div class='hint' style='margin-top:6px'>"+(r.score>=30?"A strong paper — this is Band 7 territory.":r.score>=23?"A Band 6 paper. Look at the weakest question type below.":"Work through the review underneath: every wrong answer explains itself.")+"</div>"+
+     "<div class='grid2'>"+
+     "<div class='stat'><div class='n'>"+r.score+" / 40</div><div class='l'>questions correct</div></div>"+
+     (r.mode==="timed"? "<div class='stat'><div class='n'>"+fmt(r.time)+"</div><div class='l'>time used of 60:00</div></div>":"")+
+     (r.mode==="timed"&&r.pauses? "<div class='stat'><div class='n'>"+r.pauses+"</div><div class='l'>pauses, "+fmt(r.pausedFor)+" stopped — not counted above</div></div>":"")+
+     "</div></div></div>";
+  h+="<h3 class='sec'>By passage</h3><table class='res'><tr><th>Passage</th><th>Score</th><th style='width:120px'></th></tr>";
+  EXAM.passages.forEach(p=>{
+    const qs=QALL.filter(q=>q.pn===p.n), c=qs.filter(correct).length, pct=Math.round(c/qs.length*100);
+    h+="<tr><td>"+p.n+". "+p.title+"</td><td>"+c+" / "+qs.length+"</td><td><div class='bar'><span style='width:"+pct+"%;background:"+(pct>=80?"var(--ok)":pct>=50?"var(--hot)":"var(--no)")+"'></span></div></td></tr>";
+  });
+  h+="</table>";
+  h+="<h3 class='sec'>By question type</h3><table class='res'><tr><th>Type</th><th>Score</th><th style='width:120px'></th></tr>";
+  const byType={};
+  QALL.forEach(q=>{ byType[q.ty]=byType[q.ty]||{c:0,t:0}; byType[q.ty].t++; if(correct(q)) byType[q.ty].c++; });
+  Object.keys(byType).sort((a,b)=>(byType[a].c/byType[a].t)-(byType[b].c/byType[b].t)).forEach(k=>{
+    const o=byType[k], pct=Math.round(o.c/o.t*100);
+    h+="<tr><td>"+k+"</td><td>"+o.c+" / "+o.t+"</td><td><div class='bar'><span style='width:"+pct+"%;background:"+(pct>=80?"var(--ok)":pct>=50?"var(--hot)":"var(--no)")+"'></span></div></td></tr>";
+  });
+  h+="</table>";
+  h+="<h3 class='sec'>Every question</h3>";
+  QALL.forEach(q=>{
+    const ok=correct(q), yours=(st.ans[q.id]===undefined||String(st.ans[q.id]).trim()==="")?"—":st.ans[q.id];
+    h+="<div class='rv "+(ok?"right":"wrong")+"'><div class='top'>"+numOf(q.id)+". "+(ok?"Correct":"Wrong")+"<span class='ty'>Passage "+q.pn+" · "+q.ty+"</span></div>"+
+       "<div>Your answer: <b>"+yours+"</b>"+(ok?"":" · Correct: <b>"+q.a.map(a=>a.length<3?a.toUpperCase():a).join(" / ")+"</b>")+"</div>"+
+       (ok?"":"<div class='why'>"+q.why+"</div>")+"</div>";
+  });
+  h+="</div><div class='navrow'><button class='btn ghost' id='again'>← Back to the start</button><span class='sp'></span><button class='btn ghost' id='printRes'>Print this page</button></div>";
+  return h;
+}
+
+/* ---------------- clock ---------------- */
+function startClock(){
+  stopClock();
+  if(mode!=="timed"){ $("#clock").style.display="none"; $("#pauseBtn").style.display="none"; return; }
+  $("#clock").style.display=""; const pb=$("#pauseBtn");
+  pb.style.display=""; pb.textContent="Pause"; pb.classList.remove("on");
+  paused=false; document.body.classList.remove("paused"); $("#clock").classList.remove("paused");
+  tick=setInterval(()=>{
+    if(screen!=="exam") return stopClock();
+    if(paused){ pausedFor++; return; }
+    spent++;
+    const left=LIMIT-spent, el=$("#clock"); if(!el) return;
+    el.textContent = left>=0? fmt(left) : "+"+fmt(-left);
+    el.classList.toggle("over", left<0);
+    const l=$("#left"); if(l) l.textContent = left>=0? "" : "Over time — finish and mark.";
+  },1000);
+}
+function stopClock(){
+  if(tick){ clearInterval(tick); tick=null; }
+  if($("#clock")){ $("#clock").style.display="none"; $("#clock").classList.remove("paused"); }
+  if($("#pauseBtn")) $("#pauseBtn").style.display="none";
+  paused=false; document.body.classList.remove("paused");
+}
+function togglePause(){
+  if(screen!=="exam" || mode!=="timed") return;
+  paused=!paused; if(paused) pauses++;
+  const pb=$("#pauseBtn"); pb.textContent=paused?"Resume":"Pause"; pb.classList.toggle("on",paused);
+  $("#clock").classList.toggle("paused",paused);
+  document.body.classList.toggle("paused",paused);
+}
+
+/* ---------------- wiring ---------------- */
+function updProgress(){
+  const el=$("#prog"); if(el) el.textContent=answered()+"/"+QALL.length;
+  const fill=$("#topfill"); if(fill) fill.style.width = (screen==="exam" ? Math.round(answered()/QALL.length*100) : 0)+"%";
+  QALL.forEach(q=>{
+    const box=document.getElementById("q-"+q.id); if(!box) return;
+    const on = st.ans[q.id]!==undefined && String(st.ans[q.id]).trim()!=="";
+    box.classList.toggle("done", on);
+  });
+  const p=EXAM.passages[cur], qs=p.groups.flatMap(g=>g.qs);
+  const done=qs.filter(q=>{const a=st.ans[q.id]; return a!==undefined&&String(a).trim()!=="";}).length;
+  const tab=document.querySelector(".ptab[data-p='"+cur+"'] .done"); if(tab) tab.textContent=done+"/"+qs.length;
+}
+function render(){
+  const p=$("#panel");
+  $("#progChip").style.display = screen==="exam" ? "" : "none";
+  if(screen==="start"){ stopClock(); p.innerHTML=startHTML(); wireStart(); return; }
+  if(screen==="result"){ stopClock(); p.innerHTML=resultHTML(); wireResult(); return; }
+  p.innerHTML=examHTML(); wireExam(); updProgress();
+}
+function wireStart(){
+  document.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{ mode=b.dataset.m; render(); });
+  const b=$("#begin"); if(b) b.onclick=()=>{
+    st.ans={}; st.hl={}; spent=0; pauses=0; pausedFor=0; cur=0; screen="exam";
+    render(); startClock(); window.scrollTo({top:0,behavior:"smooth"});
+  };
+  const s=$("#seeRes"); if(s) s.onclick=()=>{ screen="result"; render(); };
+}
+function wireExam(){
+  wireHL();
+  const hb=document.querySelector("#hlBtn");
+  if(hb) hb.onclick=()=>{ hlMode=!hlMode; hb.textContent="Highlighter "+(hlMode?"on":"off"); hb.classList.toggle("on",hlMode); document.body.classList.toggle("hl-on",hlMode); };
+  const hc=document.querySelector("#hlClear");
+  if(hc) hc.onclick=()=>{ if(countHL() && confirm("Remove every highlight in this paper?")){ st.hl={}; repaintPassage(); } };
+  document.querySelectorAll(".ptab").forEach(b=>b.onclick=()=>{ cur=+b.dataset.p; render(); window.scrollTo({top:0,behavior:"smooth"}); });
+  document.querySelectorAll("input.txt").forEach(i=>i.oninput=()=>{ st.ans[i.dataset.t]=i.value; updProgress(); });
+  document.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{
+    const id=b.dataset.l;
+    st.ans[id] = (st.ans[id]===b.dataset.v) ? undefined : b.dataset.v;
+    document.querySelectorAll("[data-l='"+id+"']").forEach(x=>x.classList.toggle("sel", st.ans[id]===x.dataset.v));
+    updProgress();
+  });
+  const n=$("#nextP"); if(n) n.onclick=()=>{ cur++; render(); window.scrollTo({top:0,behavior:"smooth"}); };
+  const pv=$("#prevP"); if(pv) pv.onclick=()=>{ cur--; render(); window.scrollTo({top:0,behavior:"smooth"}); };
+  const q=$("#quit"); if(q) q.onclick=()=>{ if(confirm("Leave the paper? It will not be marked.")){ stopClock(); screen="start"; render(); } };
+  const f=$("#finish"); if(f) f.onclick=()=>{
+    const blank=QALL.length-answered();
+    if(blank && !confirm(blank+" question"+(blank>1?"s are":" is")+" still blank. Mark the paper anyway?")) return;
+    stopClock();
+    const score=QALL.filter(correct).length;
+    st.result={score, band:bandOf(score), mode, time:spent, pauses, pausedFor, ans:Object.assign({},st.ans)};
+    screen="result"; render(); window.scrollTo({top:0,behavior:"smooth"});
+  };
+}
+function burst(n){
+  const cols=["var(--hot)","var(--ok)","var(--ink)","var(--hot2)"];
+  for(let i=0;i<n;i++){ const d=document.createElement("div"); d.className="conf";
+    d.style.left=Math.random()*100+"vw"; d.style.background=cols[i%cols.length];
+    d.style.animation="fall "+(1.7+Math.random()*1.5)+"s linear forwards";
+    document.body.appendChild(d); setTimeout(()=>d.remove(),3400); }
+}
+function wireResult(){
+  if(st.result && st.result.score>=23) burst(36);
+  const a=$("#again"); if(a) a.onclick=()=>{ screen="start"; render(); };
+  const p=$("#printRes"); if(p) p.onclick=()=>window.print();
+}
+
+$("#pauseBtn").onclick=togglePause;
+$("#saveBtn").onclick=()=>{
+  const blob=new Blob([JSON.stringify({app:APP_ID,v:1,st,spent,mode},null,1)],{type:"application/json"});
+  const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=APP_ID+"-progress.json"; a.click();
+};
+$("#loadBtn").onclick=()=>$("#fileIn").click();
+$("#fileIn").onchange=e=>{
+  const f=e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ try{
+      const o=JSON.parse(r.result);
+      if(o.app && o.app!==APP_ID){ alert("That progress file belongs to a different paper. Choose the file saved by "+EXAM.title+"."); return; }
+      if(o.st){ st.ans=o.st.ans||{}; st.hl=o.st.hl||{}; st.result=o.st.result||null; spent=o.spent||0; mode=o.mode||"timed"; screen = st.result? "result":"start"; render(); }
+      else alert("That file could not be read. Choose the progress file this app saved.");
+    }catch(err){ alert("That file could not be read. Choose the progress file this app saved."); } };
+  r.readAsText(f); e.target.value="";
+};
+render();
+</script>
+</body>
+</html>
